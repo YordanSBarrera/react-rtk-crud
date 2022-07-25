@@ -16,7 +16,7 @@ function TaskForm() {
       ...task,
       [e.target.name]: e.target.value,
     });
-    console.log(task);
+    // console.log();
   };
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -26,6 +26,7 @@ function TaskForm() {
         id: uuid(),
       })
     );
+    
   };
 
   return (
