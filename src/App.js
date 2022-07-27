@@ -8,7 +8,7 @@ const App = () => {
       <Routes>
         <Route path="/add" element={<TaskForm />} />
         <Route path="/" element={<TasksList />} />
-        <Route path="/edit:id" element={<TaskForm/>}/>
+        <Route path="/edit/:id" element={<TaskForm/>}/>
       </Routes>
     </div>
   );

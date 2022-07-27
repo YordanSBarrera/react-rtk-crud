@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addTask } from "../features/tasks/taskSlice";
+import { addTask, updateTask } from "../features/tasks/taskSlice";
 import { v4 as uuid } from "uuid";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -25,29 +25,26 @@ function TaskForm() {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(
-      addTask({
-        ...task,
-        id: uuid(),
-      })
-    );
+    if (params.id) {
+      dispatch(updateTask(task))
+    } else {
+      dispatch(
+        addTask({
+          ...task,
+          id: uuid(),
+        })
+      );
+    }
     navegate("/");
   };
 
   useEffect(() => {
     console.log(params, allTasks);
     if (params.id) {
-      setTask(
-        allTasks.map((tarea) => {
-          if (params.id === tarea.id) return tarea;
-        })
-      );
+      setTask(allTasks.find((task) => task.id === params.id));
     }
-    // console.log(task);
-  }, [params, allTasks]);
-  useEffect(() => {
-    console.log(task);
-  }, [task]);
+  }, []);
+
   return (
     <form onSubmit={handleSubmit}>
       <input
@@ -55,13 +52,13 @@ function TaskForm() {
         type="text"
         placeholder="title"
         onChange={handleChange}
-        value={task ? task.title : ""}
+        value={task.title}
       />
       <textarea
         name="description"
         placeholder="description"
         onChange={handleChange}
-        value={task ? task.description : ""}
+        value={task.description}
       ></textarea>
       <button>Save</button>
     </form>

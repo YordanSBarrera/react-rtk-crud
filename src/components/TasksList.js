@@ -24,7 +24,7 @@ function TasksList() {
             <h3>{task.title}</h3>
             <p>{task.description}</p>
             <button onClick={() => clickDelete(task.id)}>Delete</button>
-            <Link to={`/edit:${task.id}`}>
+            <Link to={`/edit/${task.id}`}>
               Edit
             </Link>
           </div>
